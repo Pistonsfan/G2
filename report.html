@@ -2,38 +2,136 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AI Report Generator</title>
+  <title>Concrete Report Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    pre {
+      background: #f0f0f0;
+      padding: 20px;
+      white-space: pre-wrap;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+  </style>
 </head>
 <body>
-  <h1>AI Report Generator</h1>
-  <p>Select the type of report:</p>
-  <select id="report-type">
-    <option value="sample">Sample Collection</option>
-    <option value="concrete">Concrete Report</option>
-    <option value="density">Density Report</option>
-  </select>
-  <br/><br/>
-  <textarea id="input" rows="10" cols="50" placeholder="Enter field notes here..."></textarea>
-  <br/><br/>
+  <h1>Concrete Report Generator</h1>
+
+  <div class="section">
+    <label for="weather">Weather:</label>
+    <input type="text" id="weather" placeholder="Overcast, 53°F" />
+
+    <label for="client">Client:</label>
+    <input type="text" id="client" placeholder="Local Life Landscaping, LLC" />
+
+    <label for="client-rep">Client Representative:</label>
+    <input type="text" id="client-rep" placeholder="Tim Ewan" />
+
+    <label for="arrival">Arrival Time:</label>
+    <input type="text" id="arrival" placeholder="10:00 am" />
+
+    <label for="contractor">Contractor Name:</label>
+    <input type="text" id="contractor" placeholder="Local Life Landscaping LLC" />
+
+    <label for="description">Work Description:</label>
+    <textarea id="description" rows="3" placeholder="Sidewalk around pickleball courts..."></textarea>
+
+    <label for="start-placement">Start Time of Placement:</label>
+    <input type="text" id="start-placement" placeholder="10:50 am" />
+
+    <label for="concrete-type">Concrete Mix Info:</label>
+    <input type="text" id="concrete-type" placeholder="20 CY MDOT 3500 AE by Osborne Concrete Company" />
+
+    <label for="air-content">Air Content (%):</label>
+    <input type="text" id="air-content" placeholder="7.0" />
+
+    <label for="slump">Slump (inches):</label>
+    <input type="text" id="slump" placeholder="5-1/2" />
+
+    <label for="temperature">Mix Temperature (°F):</label>
+    <input type="text" id="temperature" placeholder="67" />
+
+    <label for="cylinders">Number of Cylinders Made:</label>
+    <input type="number" id="cylinders" placeholder="5" />
+
+    <label for="set-label">Set Label:</label>
+    <input type="text" id="set-label" placeholder="G2 Set No. 6" />
+
+    <label for="departure">Departure Time:</label>
+    <input type="text" id="departure" placeholder="12:30 pm" />
+  </div>
+
+  <!-- Reserved for future file uploads -->
+  <!--
+  <div class="section">
+    <label for="file-upload">Attach photos, reports, or site plans:</label>
+    <input type="file" id="file-upload" multiple />
+  </div>
+  -->
+
   <button onclick="generateReport()">Generate Report</button>
+
+  <h2>Generated Report:</h2>
   <pre id="output"></pre>
 
   <script>
     function generateReport() {
-      const type = document.getElementById('report-type').value;
-      const input = document.getElementById('input').value;
-      const output = document.getElementById('output');
-      let report = "";
+      const weather = document.getElementById('weather').value;
+      const client = document.getElementById('client').value;
+      const rep = document.getElementById('client-rep').value;
+      const arrival = document.getElementById('arrival').value;
+      const contractor = document.getElementById('contractor').value;
+      const description = document.getElementById('description').value;
+      const startPlacement = document.getElementById('start-placement').value;
+      const concreteType = document.getElementById('concrete-type').value;
+      const airContent = document.getElementById('air-content').value;
+      const slump = document.getElementById('slump').value;
+      const temperature = document.getElementById('temperature').value;
+      const cylinders = document.getElementById('cylinders').value;
+      const setLabel = document.getElementById('set-label').value;
+      const departure = document.getElementById('departure').value;
 
-      if (type === "sample") {
-        report = `Sample Collection Report\\n\\nField Notes:\\n${input}\\n\\nSummary: Sample collection conducted. Samples sent for testing.`;
-      } else if (type === "concrete") {
-        report = `Concrete Report\\n\\nField Notes:\\n${input}\\n\\nSummary: Concrete poured, tested, and verified.`;
-      } else if (type === "density") {
-        report = `Density Report\\n\\nField Notes:\\n${input}\\n\\nSummary: In-place density tests performed and results confirmed.`;
-      }
+      const report = `Daily Field Report (DFR)
 
-      output.textContent = report;
+Weather: ${weather}
+Client: ${client}
+Client Rep: ${rep}
+
+Progress of Work:
+G2 visited the above-referenced job site to observe the contractor's construction operations and to perform field tests in association with concrete placement. Upon arriving at the site at ${arrival}, G2 observed that the contractor, ${contractor}, had previously prepared formwork for the proposed work. ${description} Refer to the attached annotated site plan for the approximate location of today's concrete placement operations.
+
+The contractor began placing concrete at approximately ${startPlacement} via direct discharge. G2 observed the contractor consolidate the concrete using hand tools and subsequently finish the surface with appropriate equipment and curing compound. G2 observed the contractor place approximately ${concreteType} during today's placement operations.
+
+G2 obtained one sample of concrete during the placement operations and performed field tests. Our test results indicated a total air content of ${airContent} percent, a slump of ${slump} inches, and a mix temperature of ${temperature}°F. G2 molded one set of ${cylinders} compressive strength cylinders for laboratory evaluation, and we labeled the set ${setLabel}. Please refer to the attached Daily Concrete Report for test results and additional information.
+
+G2 informed the client and contractor representatives of our observations and test results throughout the day, completed the field report, and departed the site at approximately ${departure}.`;
+
+      document.getElementById('output').textContent = report;
     }
   </script>
 </body>
