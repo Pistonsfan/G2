@@ -6,130 +6,119 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 40px;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
     }
     label {
+      display: block;
+      margin-top: 15px;
       font-weight: bold;
     }
     input, textarea, select {
       width: 100%;
-      margin-bottom: 15px;
       padding: 8px;
-      font-size: 16px;
+      margin-top: 5px;
+      box-sizing: border-box;
     }
     button {
+      margin-top: 20px;
       padding: 10px 20px;
       font-size: 16px;
-      background-color: #007BFF;
+      background-color: #3366cc;
       color: white;
       border: none;
-      cursor: pointer;
       border-radius: 5px;
     }
     button:hover {
-      background-color: #0056b3;
+      background-color: #254a9e;
     }
-    pre {
-      background: #f0f0f0;
-      padding: 20px;
+    #output {
       white-space: pre-wrap;
-    }
-    .section {
-      margin-bottom: 30px;
+      margin-top: 30px;
+      background: #f0f0f0;
+      padding: 15px;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
   <h1>Concrete Report Generator</h1>
 
-  <div class="section">
-    <label for="weather">Weather:</label>
-    <input type="text" id="weather" placeholder="Overcast, 53°F" />
+  <label>Weather</label>
+  <input type="text" id="weather" placeholder="e.g., Overcast, 53°F" />
 
-    <label for="client">Client:</label>
-    <input type="text" id="client" placeholder="Local Life Landscaping, LLC" />
+  <label>Client</label>
+  <input type="text" id="client" />
 
-    <label for="client-rep">Client Representative:</label>
-    <input type="text" id="client-rep" placeholder="Tim Ewan" />
+  <label>Client Rep</label>
+  <input type="text" id="clientRep" />
 
-    <label for="arrival">Arrival Time:</label>
-    <input type="text" id="arrival" placeholder="10:00 am" />
+  <label>Arrival Time</label>
+  <input type="time" id="arrivalTime" />
 
-    <label for="contractor">Contractor Name:</label>
-    <input type="text" id="contractor" placeholder="Local Life Landscaping LLC" />
+  <label>Concrete Start Time</label>
+  <input type="time" id="startTime" />
 
-    <label for="description">Work Description:</label>
-    <textarea id="description" rows="3" placeholder="Sidewalk around pickleball courts..."></textarea>
+  <label>Concrete Volume (cubic yards)</label>
+  <input type="number" id="volume" />
 
-    <label for="start-placement">Start Time of Placement:</label>
-    <input type="text" id="start-placement" placeholder="10:50 am" />
+  <label>Concrete Type</label>
+  <input type="text" id="type" placeholder="e.g., MDOT 3500 AE" />
 
-    <label for="concrete-type">Concrete Mix Info:</label>
-    <input type="text" id="concrete-type" placeholder="20 CY MDOT 3500 AE by Osborne Concrete Company" />
+  <label>Supplier</label>
+  <input type="text" id="supplier" />
 
-    <label for="air-content">Air Content (%):</label>
-    <input type="text" id="air-content" placeholder="7.0" />
+  <label>Slump (inches)</label>
+  <input type="text" id="slump" />
 
-    <label for="slump">Slump (inches):</label>
-    <input type="text" id="slump" placeholder="5-1/2" />
+  <label>Air Content (%)</label>
+  <input type="text" id="air" />
 
-    <label for="temperature">Mix Temperature (°F):</label>
-    <input type="text" id="temperature" placeholder="67" />
+  <label>Mix Temperature (°F)</label>
+  <input type="text" id="temperature" />
 
-    <label for="cylinders">Number of Cylinders Made:</label>
-    <input type="number" id="cylinders" placeholder="5" />
+  <label>Cylinder Set Number</label>
+  <input type="text" id="setNumber" />
 
-    <label for="set-label">Set Label:</label>
-    <input type="text" id="set-label" placeholder="G2 Set No. 6" />
+  <label>Number of Cylinders</label>
+  <input type="number" id="cylinderCount" />
 
-    <label for="departure">Departure Time:</label>
-    <input type="text" id="departure" placeholder="12:30 pm" />
-  </div>
-
-  <!-- Reserved for future file uploads -->
-  <!--
-  <div class="section">
-    <label for="file-upload">Attach photos, reports, or site plans:</label>
-    <input type="file" id="file-upload" multiple />
-  </div>
-  -->
+  <label>Upload Photos / Attachments</label>
+  <input type="file" id="files" multiple />
 
   <button onclick="generateReport()">Generate Report</button>
 
-  <h2>Generated Report:</h2>
-  <pre id="output"></pre>
+  <div id="output"></div>
 
   <script>
     function generateReport() {
       const weather = document.getElementById('weather').value;
       const client = document.getElementById('client').value;
-      const rep = document.getElementById('client-rep').value;
-      const arrival = document.getElementById('arrival').value;
-      const contractor = document.getElementById('contractor').value;
-      const description = document.getElementById('description').value;
-      const startPlacement = document.getElementById('start-placement').value;
-      const concreteType = document.getElementById('concrete-type').value;
-      const airContent = document.getElementById('air-content').value;
+      const clientRep = document.getElementById('clientRep').value;
+      const arrival = document.getElementById('arrivalTime').value;
+      const start = document.getElementById('startTime').value;
+      const volume = document.getElementById('volume').value;
+      const type = document.getElementById('type').value;
+      const supplier = document.getElementById('supplier').value;
       const slump = document.getElementById('slump').value;
-      const temperature = document.getElementById('temperature').value;
-      const cylinders = document.getElementById('cylinders').value;
-      const setLabel = document.getElementById('set-label').value;
-      const departure = document.getElementById('departure').value;
+      const air = document.getElementById('air').value;
+      const temp = document.getElementById('temperature').value;
+      const setNum = document.getElementById('setNumber').value;
+      const count = document.getElementById('cylinderCount').value;
 
-      const report = `Daily Field Report (DFR)
-
-Weather: ${weather}
-Client: ${client}
-Client Rep: ${rep}
-
-Progress of Work:
-G2 visited the above-referenced job site to observe the contractor's construction operations and to perform field tests in association with concrete placement. Upon arriving at the site at ${arrival}, G2 observed that the contractor, ${contractor}, had previously prepared formwork for the proposed work. ${description} Refer to the attached annotated site plan for the approximate location of today's concrete placement operations.
-
-The contractor began placing concrete at approximately ${startPlacement} via direct discharge. G2 observed the contractor consolidate the concrete using hand tools and subsequently finish the surface with appropriate equipment and curing compound. G2 observed the contractor place approximately ${concreteType} during today's placement operations.
-
-G2 obtained one sample of concrete during the placement operations and performed field tests. Our test results indicated a total air content of ${airContent} percent, a slump of ${slump} inches, and a mix temperature of ${temperature}°F. G2 molded one set of ${cylinders} compressive strength cylinders for laboratory evaluation, and we labeled the set ${setLabel}. Please refer to the attached Daily Concrete Report for test results and additional information.
-
-G2 informed the client and contractor representatives of our observations and test results throughout the day, completed the field report, and departed the site at approximately ${departure}.`;
+      let report = `Daily Field Report (DFR)\n`;
+      report += `Weather: ${weather}\nClient: ${client}\nClient Rep: ${clientRep}\n\n`;
+      report += `Progress of Work:\n`;
+      report += `G2 visited the above-referenced job site to observe the contractor's construction operations and to perform field tests related to concrete placement. Upon arriving at the site at ${arrival}, G2 observed the contractor had prepared formwork for the concrete placement.\n\n`;
+      report += `Concrete placement began at approximately ${start} using direct discharge or buggies. Concrete was consolidated and finished using standard methods.\n`;
+      report += `Approximately ${volume} cubic yards of ${type}, supplied by ${supplier}, were placed.\n\n`;
+      report += `Field test results:\n- Slump: ${slump} in\n- Air Content: ${air}%\n- Mix Temp: ${temp}°F\n`;
+      report += `One set of ${count} compressive strength cylinders was molded and labeled G2 Set No. ${setNum}.\n\n`;
+      report += `G2 informed the client and contractor of observations and results and departed the site after completing the report.\n`;
 
       document.getElementById('output').textContent = report;
     }
