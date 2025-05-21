@@ -2,14 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Welcome</title>
+  <title>G2 Report Dashboard</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      padding-top: 50px;
+    }
+    .logo {
+      width: 200px;
+    }
+    .button {
+      display: block;
+      margin: 20px auto;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #3366cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      width: 250px;
+      text-decoration: none;
+    }
+    .button:hover {
+      background-color: #254a9e;
+    }
+  </style>
 </head>
-<body style="text-align: center; margin-top: 50px;">
-  <img src="G2_logo.PNG" alt="Company Logo" style="width: 200px;" />
-  <h1>Welcome to [G2 Consulting Group]</h1>
-  <a href="report.html">
-    <button style="padding: 10px 20px; font-size: 16px;">Start Report</button>
-  </a>
+<body>
+  <img src="G2_logo.PNG" alt="Company Logo" class="logo" />
+  <h1>G2 Report Generator</h1>
+  <a class="button" href="report-concrete.html">Concrete Report</a>
+  <a class="button" href="report-sample.html">Sample Collection Report</a>
+  <a class="button" href="report-density.html">Density Report</a>
+  <!-- Add more links here in the future -->
 </body>
 </html>
 
