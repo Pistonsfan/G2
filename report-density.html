@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Density Report Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #2a7c2a;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #1e5a1e;
+    }
+    #output {
+      white-space: pre-wrap;
+      margin-top: 30px;
+      background: #f0f0f0;
+      padding: 15px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Density Report Generator</h1>
+
+  <label>Weather</label>
+  <input type="text" id="weather" placeholder="e.g., Clear, 80°F" />
+
+  <label>Client</label>
+  <input type="text" id="client" />
+
+  <label>Client Rep</label>
+  <input type="text" id="clientRep" />
+
+  <label>Arrival Time</label>
+  <input type="time" id="arrivalTime" />
+
+  <label>Departure Time</label>
+  <input type="time" id="departureTime" />
+
+  <label>Material 1 (e.g., Sand Subbase)</label>
+  <input type="text" id="material1" />
+
+  <label>Compaction Method</label>
+  <input type="text" id="method1" placeholder="e.g., walk-behind plate compactor" />
+
+  <label>Proctor Max Dry Density (Material 1)</label>
+  <input type="text" id="proctor1" placeholder="e.g., 107.0 pcf" />
+
+  <label>Compaction Range (%)</label>
+  <input type="text" id="range1" placeholder="e.g., 95.1 to 95.9" />
+
+  <label>Moisture Range (%)</label>
+  <input type="text" id="moisture1" placeholder="e.g., 6.1 to 7.2" />
+
+  <label>Material 2 (Optional)</label>
+  <input type="text" id="material2" />
+
+  <label>Proctor Max Dry Density (Material 2)</label>
+  <input type="text" id="proctor2" />
+
+  <label>Compaction Range (%) (Material 2)</label>
+  <input type="text" id="range2" />
+
+  <label>Moisture Range (%) (Material 2)</label>
+  <input type="text" id="moisture2" />
+
+  <label>Upload Photos / Attachments</label>
+  <input type="file" id="files" multiple />
+
+  <button onclick="generateReport()">Generate Report</button>
+
+  <div id="output"></div>
+
+  <script>
+    function generateReport() {
+      const weather = document.getElementById('weather').value;
+      const client = document.getElementById('client').value;
+      const clientRep = document.getElementById('clientRep').value;
+      const arrival = document.getElementById('arrivalTime').value;
+      const departure = document.getElementById('departureTime').value;
+      const material1 = document.getElementById('material1').value;
+      const method1 = document.getElementById('method1').value;
+      const proctor1 = document.getElementById('proctor1').value;
+      const range1 = document.getElementById('range1').value;
+      const moisture1 = document.getElementById('moisture1').value;
+      const material2 = document.getElementById('material2').value;
+      const proctor2 = document.getElementById('proctor2').value;
+      const range2 = document.getElementById('range2').value;
+      const moisture2 = document.getElementById('moisture2').value;
+
+      let report = `Daily Field Report (DFR)\n`;
+      report += `Weather: ${weather}\nClient: ${client}\nClient Rep: ${clientRep}\n\n`;
+      report += `Progress of Work:\nWe visited the above-referenced job site to observe the contractor's construction operations and perform field tests. Upon our arrival at approximately ${arrival}, we observed the contractor compacting the ${material1} using a ${method1}.\n\n`;
+      report += `We performed in-place density testing on the compacted ${material1}. Results indicate compaction between ${range1}% of the maximum dry density (${proctor1}), and moisture ranged from ${moisture1}%.\n`;
+
+      if (material2 && proctor2 && range2 && moisture2) {
+        report += `\nAdditionally, we tested the ${material2}. Results showed compaction between ${range2}% of the maximum dry density (${proctor2}), with moisture ranging from ${moisture2}%.\n`;
+      }
+
+      report += `\nRefer to the attached Field Density Test Report for complete results.\n\nWe informed the client representative of today’s observations and test results, completed our field report, and departed the site at approximately ${departure}.`;
+
+      document.getElementById('output').textContent = report;
+    }
+  </script>
+</body>
+</html>
